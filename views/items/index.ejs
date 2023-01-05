@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>Items</title>
+    <link rel="stylesheet" href="/styles/items.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a class="material-icons shopping-cart">shopping_cart</a>
+    </nav>
+    <div class="container">
+        <div class="grid">
+            <% items.forEach(function(item){ %>
+                <div class="grid-item">
+                    <div class="grid-item-container">
+                        <div class="grid-item-name">
+                            <h3>
+                                <%= item.name %>
+                            </h3>
+                        </div>
+                        <div class="grid-item-image-container">
+                            <img src="images/<%= item.image %>" />
+                        </div>
+                        <div class="grid-item-description-price">
+                            <div class="grid-item-description">
+                                <p>
+                                    <%= item.description %>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid-item-price">
+                            <p>$<%= item.price %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid-item-buttons">
+                        <button class="grid-item-button button-add" type="button">
+                            <i class="material-icons">exposure_plus_1</i>
+                        </button>
+                        <button class="grid-item-button button-delete" type="button"><i
+                                class="material-icons">exposure_neg_1</i></button>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </div>
+</body>
+
+</html>
