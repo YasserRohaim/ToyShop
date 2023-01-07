@@ -11,10 +11,7 @@ router.post('/add-item',authMiddleWare, cartController.addItem);
 router.post('/delete-item',authMiddleWare, cartController.deleteItem);
 router.post('/update-quantity',authMiddleWare, cartController.updateQuantity);
 
-// define route to catch the items under which brand
-// router.get('/brand/:brand', itemsController.getItemsByBrand);
 
-// router.get('/search', itemsController.search);
 
 
 module.exports = router;

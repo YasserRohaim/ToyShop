@@ -38,6 +38,6 @@ app.use('/cart',cartRoutes);
 // // set view directory
 // app.set('views', 'views');
 
-app.listen('3000', () => {
+app.listen('3001', () => {
     console.log('Listening to port 3000..');
 });

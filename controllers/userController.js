@@ -77,4 +77,20 @@ module.exports = {
             res.status(500).send({ success: false, msg: "Internal Server Error" });
         }
     }
+    ,
+    viewProfile: async (req, res) => {
+        try {
+            
+                const query = 'SELECT first_name, last_name, email, username, phone, address FROM `users` WHERE id=?';
+                const user_info = await sqlQuery(query, [res.locals.user.user_id]);
+                res.json({ success: true, user_info });
+            
+
+        } catch (err) {
+            console.log(err)
+            res.status(500).send({ success: false, msg: "Internal Server Error" });
+        }
+    }
+
+    
 }
