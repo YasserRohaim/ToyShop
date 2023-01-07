@@ -48,5 +48,15 @@ module.exports = {
             console.log(err)
             res.status(500).send(err);
         }
-    }
+    },
+    getItemByID: async (req, res) => {
+        try {
+            const query = 'SELECT * FROM items where id=?';
+            const item = await sqlQuery(query,[req.params.itemId]);
+            
+            res.json({ success: true, item });
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    },
 }

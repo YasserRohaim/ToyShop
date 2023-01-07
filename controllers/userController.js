@@ -27,6 +27,7 @@ module.exports = {
             const id_query = 'SELECT id FROM `users` where username=? or email=?'
             const sql_res =await sqlQuery(id_query, [req.body.username,req.body.email]);
             var token = jwt.sign({ user_id: sql_res[0].id }, process.env.JWT_PWD);
+            res.cookie('session', token)
             res.json({ success: true, auth_token: token  });
             
         } catch (err) {
@@ -50,6 +51,7 @@ module.exports = {
             } else {
                 if (bcrypt.compareSync(req.body.password, sql_res[0].password)) {
                     var token = jwt.sign({ user_id: sql_res[0].id }, process.env.JWT_PWD);
+                    res.cookie('session', token)
                     res.json({ success: true, auth_token: token });
                 } else {
                     res.json({ success: false, msg: 'Incorrect password' })

@@ -1,12 +1,14 @@
 // import express
 const express = require('express');
 // const SwaggerUI = require('swagger-ui')
+const cookieParser = require('cookie-parser');
 
 // import dotenv to read .env file
 require('dotenv').config();
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 
 
 //const pathToSwaggerUi = require('swagger-ui-dist').absolutePath()

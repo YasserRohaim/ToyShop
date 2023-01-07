@@ -1,3 +1,4 @@
+-- drop table `orders`;
 CREATE DATABASE IF NOT EXISTS `shop`;
 USE `shop`;
 
@@ -8,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `description` varchar(255) NOT NULL,
   `price` decimal(6,2) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `quantity` int NOT NULL DEFAULT 1,
+  `quantity` int NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
 );
 
@@ -27,16 +28,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE(`email`)
 );
 
--- CREATE TABLE IF NOT EXISTS `carts` (
--- 	`id` int NOT NULL AUTO_INCREMENT,
---     `user_id` int NOT NULL,
--- 	`phone` varchar(255) ,
---     `address` varchar(255),
-    
---   UNIQUE (`user_id`),  
---   PRIMARY KEY (`id`)
-  
--- );
+
 
 CREATE TABLE IF NOT EXISTS `cart_items` (
 	`id` int NOT NULL AUTO_INCREMENT,
@@ -45,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
     `quantity`int NOT NULL,
   UNIQUE `user-item`(`item_id`,`user_id`),
   PRIMARY KEY (`id`),
-  FOREIGN KEY(`user_id`) REFERENCES `users(id)`,
-  FOREIGN KEY(`item_id`) REFERENCES `items(id)`
+  FOREIGN KEY(`user_id`) REFERENCES users(id),
+  FOREIGN KEY(`item_id`) REFERENCES items(id)
 );
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -56,11 +48,11 @@ CREATE TABLE IF NOT EXISTS `orders` (
 	`phone` varchar(255)  NOT NULL,
     `date` varchar(255)  NOT NULL,
     `address` varchar(255) NOT NULL,
-    `delivery_info` 	varchar(255) NOT NULL,
+    `delivery_info` 	varchar(255) NOT NULL DEFAULT 'Placed',
     `carrier_info` 	varchar(255),
     `carrier_phone` 	int,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY(`user_id`) REFERENCES `users(id)`
+  PRIMARY KEY (`id`) ,
+  FOREIGN KEY(`user_id`) REFERENCES users(id)
   
 );
 
@@ -72,8 +64,8 @@ CREATE TABLE IF NOT EXISTS `order_items` (
     `price` int NOT NULL,
     `quantity` int NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY(`user_id`) REFERENCES `users(id)`,
-  FOREIGN KEY(`order_id`) REFERENCES `orders(id)`
+  FOREIGN KEY(`user_id`) REFERENCES users(id),
+  FOREIGN KEY(`order_id`) REFERENCES orders(id)
 );
 
 INSERT INTO `items` (`name`, `brand`, `description`, `price`, `image`) VALUES
