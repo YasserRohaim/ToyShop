@@ -90,4 +90,20 @@ module.exports = {
             res.status(500).send({ success: false, msg: "Internal Server Error" });
         }
     }
+
+    , 
+    clearCart: async (req, res) => {
+
+
+        try {
+            const delete_query = 'DELETE FROM `cart_items` WHERE  user_id=? ';
+            const items = await sqlQuery(delete_query, [res.locals.user.user_id]);
+
+            res.json({ success: true });
+        } catch (err) {
+            console.log(err)
+            res.status(500).send({ success: false, msg: "Internal Server Error" });
+        }
+
+    }
 }
