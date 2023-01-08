@@ -9,7 +9,7 @@ const authMiddleWare=require('../middleware/auth')
 router.get('/',authMiddleWare, cartController.getItems);
 router.post('/add-item',authMiddleWare, cartController.addItem);
 router.delete('/delete-item',authMiddleWare, cartController.deleteItem);
-router.patch('/update-quantity',authMiddleWare, cartController.updateQuantity);
+router.post('/update-quantity',authMiddleWare, cartController.updateQuantity);
 router.post('/place-order',authMiddleWare, cartController.placeOrder);
 router.delete('/clear-cart',authMiddleWare, cartController.clearCart);
 
