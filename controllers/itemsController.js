@@ -52,11 +52,10 @@ module.exports = {
     getItemByID: async (req, res) => {
         try {
             const query = 'SELECT * FROM items where id=?';
-            const item = await sqlQuery(query,[req.params.itemId]);
-            
-            res.json({ success: true, item });
+            const item = await sqlQuery(query,[req.params.item_id]);
+            res.json({ success: item.length>0,item: item[0] });
         } catch (err) {
-            res.status(500).send(err);
+            res.status(500).send({success:false,msg:'Internal Server Error'});
         }
     },
 }

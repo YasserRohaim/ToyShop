@@ -6,6 +6,7 @@ const itemsController = require('../controllers/ItemsController');
 
 /* define routes */
 router.get('/', itemsController.getItems);
+router.get('/:item_id', itemsController.getItemByID);
 
 // define route to catch the items under which brand
 router.get('/brand/:brand', itemsController.getItemsByBrand);

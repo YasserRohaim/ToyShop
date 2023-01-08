@@ -9,6 +9,7 @@ router.post('/signup', userController.signup);
 
 router.post('/signin', userController.signin);
 router.get('/view-orders', authMiddleWare, userController.viewOrders);
+router.get('/view-orders/:order-id', authMiddleWare, userController.viewOrderItems);
 
 router.get('/user-profile',authMiddleWare, userController.viewProfile);
 

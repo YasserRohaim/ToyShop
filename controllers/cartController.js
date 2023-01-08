@@ -3,7 +3,7 @@ const sqlQuery = require('../config/db');
 module.exports = {
     getItems: async (req, res) => {
         try {
-            const query = 'SELECT * FROM cart_items  LEFT JOIN items ON items.id=cart_items.item_id WHERE user_id=?';
+            const query = 'SELECT cart_items.id , user_id , item_id , cart_items.quantity as quantity , name, brand , description , price , image FROM cart_items LEFT JOIN items ON items.id=cart_items.item_id WHERE user_id=?';
             const items = await sqlQuery(query, [res.locals.user.user_id]);
             res.json({ success: true, items });
         } catch (err) {
@@ -74,36 +74,55 @@ module.exports = {
     placeOrder: async (req, res) => {
 
         try {
+            
             const cur_date = new Date();
+
             const add_order_query = 'INSERT INTO `orders` (user_id, price, phone, address, date) VALUES(?, (SELECT SUM(price * cart_items.quantity) FROM cart_items  LEFT JOIN  items ON items.id=cart_items.item_id where user_id= ?) ,? ,?,?)';
             await sqlQuery(add_order_query, [res.locals.user.user_id, res.locals.user.user_id, req.body.phone, req.body.address, cur_date]);
             const order_id_query = "SELECT LAST_INSERT_ID() as id";
             const order_id = await sqlQuery(order_id_query);
-            const add_order_items_query = 'INSERT INTO `order_items` (order_id,user_id,price, quantity) VALUES(?,?, (SELECT price FROM cart_items  LEFT JOIN  items on items.id=cart_items.item_id where user_id=?),(SELECT cart_items.quantity FROM cart_items  LEFT JOIN  items on items.id=cart_items.item_id where user_id=?))';
-            await sqlQuery(add_order_items_query, [order_id[0].id, res.locals.user.user_id, res.locals.user.user_id, res.locals.user.user_id]);
+            console.log(order_id);
+            const fetch_item_data_query = 'SELECT items.price, cart_items.quantity, cart_items.item_id FROM cart_items  LEFT JOIN  items ON items.id=cart_items.item_id WHERE user_id=?';
+            const fetch_item_data = await sqlQuery(fetch_item_data_query, [res.locals.user.user_id]);
+            console.log(fetch_item_data);
+            const add_order_items_query = 'INSERT INTO `order_items` (order_id,user_id,price, quantity,item_id) VALUES(?,?, ?,?,?)';
+            for (let i = 0; i < fetch_item_data.length; i++) {
+
+
+                await sqlQuery(add_order_items_query, [order_id[0].id, res.locals.user.user_id, fetch_item_data[i].price, fetch_item_data[i].quantity, fetch_item_data[i].item_id]);
+
+            }
+
+            const fetch_order_item_data_query = 'SELECT item_id, order_items.quantity  FROM order_items WHERE order_id =?'
+            const fetch_order_item_data = await sqlQuery(fetch_order_item_data_query, [order_id[0].id]);
+            const update_query = 'UPDATE `items` SET quantity=quantity-? WHERE id =?';
+
+            for (let i = 0; i < fetch_order_item_data.length; i++) {
+                await sqlQuery(update_query, [fetch_order_item_data[i].quantity, fetch_order_item_data[i].item_id]);
+               
+            }
             res.json({ success: true });
+
         }
-
-
         catch (err) {
-            console.log(err.errno);
-            res.status(500).send({ success: false, msg: "Internal Server Error" });
-        }
-    }
-
-    , 
-    clearCart: async (req, res) => {
-
-
-        try {
-            const delete_query = 'DELETE FROM `cart_items` WHERE  user_id=? ';
-            const items = await sqlQuery(delete_query, [res.locals.user.user_id]);
-
-            res.json({ success: true });
-        } catch (err) {
-            console.log(err)
-            res.status(500).send({ success: false, msg: "Internal Server Error" });
+                console.log(err);
+                res.status(500).send({ success: false, msg: "Internal Server Error" });
+            }
         }
 
+    ,
+        clearCart: async (req, res) => {
+
+
+            try {
+                const delete_query = 'DELETE FROM `cart_items` WHERE  user_id=? ';
+                const items = await sqlQuery(delete_query, [res.locals.user.user_id]);
+
+                res.json({ success: true });
+            } catch (err) {
+                console.log(err)
+                res.status(500).send({ success: false, msg: "Internal Server Error" });
+            }
+
+        }
     }
-}

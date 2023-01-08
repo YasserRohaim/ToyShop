@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `description` varchar(255) NOT NULL,
   `price` decimal(6,2) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `quantity` int NOT NULL DEFAULT 100,
+  `quantity` int unsigned NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
 );
 
@@ -56,15 +56,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
   
 );
 
-
 CREATE TABLE IF NOT EXISTS `order_items` (
 	`id` int NOT NULL AUTO_INCREMENT,
-    `user_id` int NOT NULL,
-    `order_id` int NOT NULL,
-    `price` int NOT NULL,
-    `quantity` int NOT NULL,
+    `item_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    `order_id` INT NOT NULL,
+    `price` INT NOT NULL,
+    `quantity` INT NOT NULL ,
   PRIMARY KEY (`id`),
   FOREIGN KEY(`user_id`) REFERENCES users(id),
+  FOREIGN KEY(`item_id`) REFERENCES items(id),
   FOREIGN KEY(`order_id`) REFERENCES orders(id)
 );
 

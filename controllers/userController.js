@@ -80,6 +80,21 @@ module.exports = {
         }
     }
     ,
+
+    viewOrderItems: async (req, res) => {
+        try {
+            
+                const query = 'SELECT * FROM `orders_items` WHERE order_id=? AND user_id=?';
+                const order_items = await sqlQuery(query, [req.params.order_id, res.locals.user.user_id]);
+                res.json({ success: true, order_items });
+            
+
+        } catch (err) {
+            console.log(err)
+            res.status(500).send({ success: false, msg: "Internal Server Error" });
+        }
+    }
+    ,
     viewProfile: async (req, res) => {
         try {
             
