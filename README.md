@@ -27,23 +27,23 @@ To run this project you will need nodeJS and npm installed on your machine first
 ### API Endpoints
 | HTTP Verbs | Endpoints | Action |
 
-| GET | /items | retrieves all items in the toyshop |
-| GET | /items/:item_id | view a certain item |
-| GET | /items/brand/:brand | view items from a certain brand |
-| GET | /items/search | performs a search in the items database table |
+*| GET | /items | retrieves all items in the toyshop |
+*| GET | /items/:item_id | view a certain item |
+*| GET | /items/brand/:brand | view items from a certain brand |
+*| GET | /items/search | performs a search in the items database table |
 
-| POST | /users/signup | To sign up a new user account |
-| POST | /users/signin | To login an existing user account |
-| GET | /users/view-orders | views the list of orders the user has made before |
-| GET | /users/view-orders/:order-id | views the details of a certain order |
-| GET | /users/user-profile | views the profile of the user |
+*| POST | /users/signup | To sign up a new user account |
+*| POST | /users/signin | To login an existing user account |
+*| GET | /users/view-orders | views the list of orders the user has made before |
+*| GET | /users/view-orders/:order-id | views the details of a certain order |
+*| GET | /users/user-profile | views the profile of the user |
 
-| GET | /cart | views the current cart of the user |
-| POST | /cart/add-item | adds an item to the cart |
-| DELETE | /cart/delete-item | deletes an item from the cart |
-| POST | /cart/update-quantity | updates the quatity of an item in the cart |
-| POST | /cart/place-order | places an order with the current cart contents |
-| DELETE | /cart/clear-cart | deletes all contents of the cart |
+*| GET | /cart | views the current cart of the user |
+*| POST | /cart/add-item | adds an item to the cart |
+*| DELETE | /cart/delete-item | deletes an item from the cart |
+*| POST | /cart/update-quantity | updates the quatity of an item in the cart |
+*| POST | /cart/place-order | places an order with the current cart contents |
+*| DELETE | /cart/clear-cart | deletes all contents of the cart |
 
 
 ### Technologies Used
