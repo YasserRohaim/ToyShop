@@ -13,7 +13,7 @@ To run this project you will need nodeJS and npm installed on your machine first
 
 * Clone the repo:
 
-        git clone https://github.com/ZyadShokry/ToyShop.git
+        git clone https://github.com/YasserRohaim/ToyShop
 
 * Install the app's dependencies:
 
@@ -51,7 +51,7 @@ To run this project you will need nodeJS and npm installed on your machine first
 
 | DELETE | /cart/delete-item | deletes an item from the cart |
 
-| POST | /cart/update-quantity | updates the quatity of an item in the cart |
+| POST | /cart/update-quantity | updates the quantity of an item in the cart |
 
 | POST | /cart/place-order | places an order with the current cart contents |
 
@@ -59,7 +59,7 @@ To run this project you will need nodeJS and npm installed on your machine first
 
 
 ### Technologies Used
-* [NodeJS](https://nodejs.org/) This is a cross-platform runtime environment built on Chrome's V8 JavaScript engine used in running JavaScript codes on the server. It allows for installation and managing of dependencies and communication with databases.
+* [NodeJS](https://nodejs.org/) This is a cross-platform runtime environment built on Chrome's V8 JavaScript engine used in running JavaScript codes on the server. It allows for the installation and management of dependencies and communication with databases.
 * [ExpressJS](https://www.expresjs.org/) This is a NodeJS web application framework.
 
 
